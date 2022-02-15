@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.0' );
+	define( '_S_VERSION', '0.1.0' );
 }
 
 /**
@@ -49,7 +49,7 @@ function hollowinside_setup() {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
-			'menu-1' => esc_html__( 'Primary', 'hollowinside' ),
+			'primary' => __( 'Primary', 'hollowinside' )
 		)
 	);
 
@@ -70,35 +70,8 @@ function hollowinside_setup() {
 		)
 	);
 
-	// Set up the WordPress core custom background feature.
-	add_theme_support(
-		'custom-background',
-		apply_filters(
-			'hollowinside_custom_background_args',
-			array(
-				'default-color' => 'ffffff',
-				'default-image' => '',
-			)
-		)
-	);
-
 	// Add theme support for selective refresh for widgets.
 	add_theme_support( 'customize-selective-refresh-widgets' );
-
-	/**
-	 * Add support for core custom logo.
-	 *
-	 * @link https://codex.wordpress.org/Theme_Logo
-	 */
-	add_theme_support(
-		'custom-logo',
-		array(
-			'height'      => 250,
-			'width'       => 250,
-			'flex-width'  => true,
-			'flex-height' => true,
-		)
-	);
 }
 add_action( 'after_setup_theme', 'hollowinside_setup' );
 
@@ -141,11 +114,18 @@ function hollowinside_scripts() {
 	wp_enqueue_style( 'hollowinside-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_style_add_data( 'hollowinside-style', 'rtl', 'replace' );
 
-	wp_enqueue_script( 'hollowinside-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
-
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+
+	// Remove unwanted styles from head
+	wp_dequeue_style( 'wp-block-library' );
+	wp_dequeue_style( 'wp-block-library-theme' );
+	wp_dequeue_style( 'wc-block-style' ); // REMOVE WOOCOMMERCE BLOCK CSS
+	wp_dequeue_style( 'global-styles' ); // REMOVE THEME.JSON
+
+	// Add closing scripts
+	wp_enqueue_script( 'main', get_bloginfo('template_url') . '/output/assets/js/main.js', '', '', true );
 }
 add_action( 'wp_enqueue_scripts', 'hollowinside_scripts' );
 
@@ -182,3 +162,25 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 if ( class_exists( 'WooCommerce' ) ) {
 	require get_template_directory() . '/inc/woocommerce.php';
 }
+
+/**
+ * Add classes to wp_nav_menu list item
+ */
+function add_menu_list_item_class($classes, $item, $args) {
+	if (property_exists($args, 'list_item_class')) {
+		$classes[] = $args->list_item_class;
+	}
+	return $classes;
+}
+add_filter('nav_menu_css_class', 'add_menu_list_item_class', 1, 3);
+
+/**
+ * Add classes to wp_nav_menu list item link
+ */
+function add_menu_link_class( $atts, $item, $args ) {
+	if (property_exists($args, 'link_class')) {
+		$atts['class'] = $args->link_class;
+	}
+	return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'add_menu_link_class', 1, 3 );

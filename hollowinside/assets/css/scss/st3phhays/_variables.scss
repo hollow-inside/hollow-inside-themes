@@ -1,0 +1,76 @@
+// Font Awesome Free
+$fa-font-path: "../../themes/hollowinside/output/assets/fonts/fontawesome-free";
+
+// Body & font
+$font-murecho:                  'Murecho', sans-serif;
+$font-arvo:                     'Arvo', serif;
+$font-family-sans-serif:        $font-murecho;
+
+$fonts: (
+    "murecho":        $font-murecho,
+    "arvo":           $font-arvo
+);
+
+// Colors
+@import "../../../node_modules/st3phhays-assets/css/scss/variables/colors";
+
+// Theme names
+$head-wound:         "head-wound";
+
+// Theme map
+$themes: (
+    $head-wound: (
+        "alpha":      #dacd71,
+        "beta":       #3d5f61,
+        "gamma":      #b7b79b,
+        "delta":      #48354b,
+        "epsilon":    #5d2f39,
+        "pink":       #f18c78,
+        "red":        #dd434b,
+        "orange":     #df6540,
+        "yellow":     #f3ca5e,
+        "green":      #b7b79b,
+        "cyan":       #3d5f61,
+        "blue":       #21496d,
+        "purple":     #48354b,
+        "magenta":    #5d2f39,
+        "gray":       #3b3a38,
+        "brown":      #fcdfbf,
+        "white":      #f8e5de,
+        "black":      #0a0809,
+        "main":       #0a0809,
+        "opposite":   #f8e5de
+    )
+);
+
+// Maps
+@import "../../../node_modules/st3phhays-assets/css/scss/variables/maps";
+
+// Global
+@import "../../../node_modules/st3phhays-assets/css/scss/variables/global";
+
+// Cards
+$card-border-radius:    0;
+$card-bg:               var(--#{$variable-prefix}gamma);
+
+// Buttons
+$btn-border-radius:     0;
+$btn-border-radius-sm:  0;
+$btn-border-radius-lg:  0;
+
+// Badges
+$badge-border-radius:   0;
+
+// Borders
+$border-color:          var(--#{$variable-prefix}gamma);
+
+// Carousels
+$carousel-control-color:             var(--#{$variable-prefix}alpha);
+$carousel-control-width:             10%;
+$carousel-indicator-active-bg:       var(--#{$variable-prefix}alpha);
+$carousel-indicator-width:           20px;
+$carousel-indicator-height:          20px;
+
+// Validation
+$form-feedback-icon-valid:          url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path fill='#{$green-vine}' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/></svg>") !default;
+$form-feedback-icon-invalid:        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='#{$red-barn}'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='#{$red-barn}' stroke='none'/></svg>") !default;

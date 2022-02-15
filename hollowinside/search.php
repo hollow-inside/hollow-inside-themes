@@ -44,10 +44,10 @@ get_header();
 			get_template_part( 'template-parts/content', 'none' );
 
 		endif;
+		get_sidebar();
 		?>
 
 	</main><!-- #main -->
 
 <?php
-get_sidebar();
 get_footer();

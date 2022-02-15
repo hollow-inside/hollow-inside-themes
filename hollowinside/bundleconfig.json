@@ -1,0 +1,19 @@
+[
+  {
+    "outputFileName": "output/assets/css/main.bundle.css",
+    "inputFiles": [
+      "output/assets/css/main.css"
+    ]
+  },
+  {
+    "outputFileName": "output/assets/js/main.js",
+    "inputFiles": [
+      "node_modules/bootstrap/js/dist/dom/data.js",
+      "node_modules/bootstrap/js/dist/dom/event-handler.js",
+      "node_modules/bootstrap/js/dist/dom/manipulator.js",
+      "node_modules/bootstrap/js/dist/dom/selector-engine.js",
+      "node_modules/bootstrap/js/dist/base-component.js",
+      "node_modules/bootstrap/js/dist/collapse.js"
+    ]
+  }
+]
