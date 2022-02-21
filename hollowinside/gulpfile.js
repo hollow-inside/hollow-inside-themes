@@ -108,7 +108,7 @@ function concatCss() {
 
 function purgeCss() {
     return src(paths.outputAssets + 'css/main.bundle.css')
-        .pipe(purgecss({
+        /*.pipe(purgecss({
             content: [
                 '*.php',
                 'inc/*.php',
@@ -121,14 +121,14 @@ function purgeCss() {
             ],
             keyframes: true,
             variables: true
-        }))
+        }))*/
         .pipe(dest(paths.outputAssets + 'css/'));
 }
 
-function minCss() {
+function minStyleCss() {
     var tasks = getBundles(regex.css).map(function (bundle) {
 
-        return src(bundle.outputFileName, { base: '.' })
+        return src(paths.outputAssets + 'css/main.bundle.css', { base: '.' })
             .pipe(cleancss({
                 level: 2,
                 compatibility: 'ie8'
@@ -136,6 +136,25 @@ function minCss() {
             .pipe(rename({ 
                 dirname: './',
                 basename: 'style' 
+            }))
+            //.pipe(dest(paths.output)); // use this for final
+            .pipe(dest('.'));
+    });
+
+    return merge(tasks);
+}
+
+function minWooCommerceCss() {
+    var tasks = getBundles(regex.css).map(function (bundle) {
+
+        return src(paths.outputAssets + 'css/woocommerce.bundle.css', { base: '.' })
+            .pipe(cleancss({
+                level: 2,
+                compatibility: 'ie8'
+            }))
+            .pipe(rename({ 
+                dirname: './',
+                basename: 'woocommerce' 
             }))
             //.pipe(dest(paths.output)); // use this for final
             .pipe(dest('.'));
@@ -164,7 +183,7 @@ function delEnd() {
 
 // Gulp series
 exports.concatScssJs = parallel(compileScss, concatJs);
-exports.minCssJs = parallel(minCss, minJs);
+exports.minCssJs = parallel(minStyleCss, minWooCommerceCss, minJs);
 
 // Gulp default
 exports.default = series(delStart, copyAssets, exports.concatScssJs, concatCss, purgeCss, exports.minCssJs, delEnd);

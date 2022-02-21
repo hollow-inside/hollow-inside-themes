@@ -11,27 +11,30 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
-		<?php
-		if ( is_singular() ) :
-			the_title( '<h1 class="entry-title">', '</h1>' );
-		else :
-			the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
-		endif;
+		<div class="container-xl">
+			<?php
+			if ( is_singular() ) :
+				the_title( '<h1 class="entry-title">', '</h1>' );
+			else :
+				the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
+			endif;
 
-		if ( 'post' === get_post_type() ) :
-			?>
-			<div class="entry-meta">
-				<?php
-				hollowinside_posted_on();
-				hollowinside_posted_by();
+			if ( 'post' === get_post_type() ) :
 				?>
-			</div><!-- .entry-meta -->
-		<?php endif; ?>
+				<div class="entry-meta">
+					<?php
+					hollowinside_posted_on();
+					hollowinside_posted_by();
+					?>
+				</div><!-- .entry-meta -->
+			<?php endif; ?>
+		</div>
 	</header><!-- .entry-header -->
-
+	
 	<?php hollowinside_post_thumbnail(); ?>
 
 	<div class="entry-content">
+		<div class="container-xl">
 		<?php
 		the_content(
 			sprintf(
@@ -55,6 +58,7 @@
 			)
 		);
 		?>
+		</div>
 	</div><!-- .entry-content -->
 
 	<footer class="entry-footer">

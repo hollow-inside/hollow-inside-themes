@@ -11,21 +11,30 @@
 
 ?>
 
-	<footer id="colophon" class="site-footer">
-		<div class="site-info">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'hollowinside' ) ); ?>">
-				<?php
-				/* translators: %s: CMS name, i.e. WordPress. */
-				printf( esc_html__( 'Proudly powered by %s', 'hollowinside' ), 'WordPress' );
-				?>
-			</a>
-			<span class="sep"> | </span>
-				<?php
-				/* translators: 1: Theme name, 2: Theme author. */
-				printf( esc_html__( 'Theme: %1$s by %2$s.', 'hollowinside' ), 'hollowinside', '<a href="https://github.com/st3phhays">Steph Hays</a>' );
-				?>
-		</div><!-- .site-info -->
-	</footer><!-- #colophon -->
+	<footer class="p-3 text-center">
+		<div class="d-flex align-items-center justify-content-center small">
+		<?php
+		echo "©";
+		$year = date("Y");
+		echo $year; 
+		?>
+		Hollow Inside
+
+		<?php
+		wp_nav_menu(
+			array(
+				'theme_location' 	=> 'footer',
+				'container'		    => false,
+				'menu_id'        	=> '',
+				'menu_class'     	=> 'nav justify-content-center',
+				'list_item_class'	=> 'nav-item',
+				'link_class'   		=> 'nav-link',
+				'fallback_cb'	    => false
+			)
+		);
+		?>
+		</div>
+	</footer>
 
 <?php wp_footer(); ?>
 

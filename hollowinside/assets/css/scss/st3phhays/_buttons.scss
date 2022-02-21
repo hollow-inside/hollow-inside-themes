@@ -1,0 +1,27 @@
+.btn, button, .button {
+    &:not(.btn-link) {
+        text-transform: uppercase;
+    }
+}
+
+// Buttons in alerts
+.woocommerce-error, .woocommerce-success, .woocommerce-notice, .woocommerce-message, .woocommerce-info {
+    &.alert {
+        .button {
+            color: var(--#{$variable-prefix}#{black});
+            border: 1px solid var(--#{$variable-prefix}#{black});
+            padding: 0.375rem 0.75rem;
+            margin-right: 1rem;
+
+            &:focus, &:active, &.active, &:active:focus, &.active:focus {
+                outline: 0;
+                box-shadow: 0 0 0 $btn-focus-width customAlpha(--#{$variable-prefix}#{black}, .25);
+            }
+
+            &:focus, &:active, &.active, &:active:focus, &.active:focus, &:hover {
+                background-color: var(--#{$variable-prefix}#{black});
+                color: var(--#{$variable-prefix}#{black}-accessible);
+            }
+        }
+    }
+}

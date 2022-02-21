@@ -20,14 +20,14 @@ function hollowinside_woocommerce_setup() {
 	add_theme_support(
 		'woocommerce',
 		array(
-			'thumbnail_image_width' => 150,
-			'single_image_width'    => 300,
+			'thumbnail_image_width' => 550,
+			'single_image_width'    => 700,
 			'product_grid'          => array(
 				'default_rows'    => 3,
 				'min_rows'        => 1,
 				'default_columns' => 4,
 				'min_columns'     => 1,
-				'max_columns'     => 6,
+				'max_columns'     => 6
 			),
 		)
 	);
@@ -118,7 +118,7 @@ if ( ! function_exists( 'hollowinside_woocommerce_wrapper_before' ) ) {
 	 */
 	function hollowinside_woocommerce_wrapper_before() {
 		?>
-			<main id="primary" class="site-main">
+			<main id="primary" class="site-main"><div class="container-xl">
 		<?php
 	}
 }
@@ -134,7 +134,7 @@ if ( ! function_exists( 'hollowinside_woocommerce_wrapper_after' ) ) {
 	 */
 	function hollowinside_woocommerce_wrapper_after() {
 		?>
-			</main><!-- #main -->
+			</div></main><!-- #main -->
 		<?php
 	}
 }
@@ -225,3 +225,129 @@ if ( ! function_exists( 'hollowinside_woocommerce_header_cart' ) ) {
 		<?php
 	}
 }
+
+// Adds classes to individual product
+/*add_filter('post_class', function($classes, $class, $product_id) {
+	if(is_product_category() || is_shop()) {
+    	$classes = array_merge(['col-sm-6','col-lg-4', 'text-center'], $classes);
+	}
+    return $classes;
+},10,3);*/
+
+// Adds classes to product title
+add_filter( 'woocommerce_product_loop_title_classes', 'custom_woocommerce_product_loop_title_classes' );
+function custom_woocommerce_product_loop_title_classes( $class ) {
+	return $class . ' h6 text-uppercase pt-3 mb-0'; // set your additional class(es) here.
+}
+
+// Removes "Add to Cart" button from product loops
+remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart');
+
+/**
+ * Disable reviews.
+ */
+function iconic_disable_reviews() {
+	remove_post_type_support( 'product', 'comments' );
+}
+
+add_action( 'init', 'iconic_disable_reviews' );
+
+// Add classes to product variation select dropdown
+add_filter( 'woocommerce_dropdown_variation_attribute_options_args', static function( $args ) {
+    $args['class'] = 'form-select';
+    return $args;
+}, 2 );
+
+// Moves product tabs on product page onto the right column instead of underneath
+remove_action( 'woocommerce_after_single_product_summary','woocommerce_output_related_products', 20 );
+add_action( 'woocommerce_after_single_product','woocommerce_output_related_products', 30 );
+
+// Add class to input fields
+
+add_filter('woocommerce_form_field_args','wc_form_field_args',10,3);
+function wc_form_field_args( $args, $key, $value = null ) {
+
+/*********************************************************************************************/
+/** This is not meant to be here, but it serves as a reference
+
+* $defaults = array(
+    *'type'              => 'text',
+    *'label'             => '',
+    *'description'       => '',
+    *'placeholder'       => '',
+    *'maxlength'         => false,
+    *'required'          => false,
+    *'id'                => $key,
+    *'class'             => array(),
+    *'label_class'       => array(),
+    *'input_class'       => array(),
+    *'return'            => false,
+    *'options'           => array(),
+    *'custom_attributes' => array(),
+    *'validate'          => array(),
+    *'default'           => '',
+*);
+*/
+// Start field type switch case
+
+switch ( $args['type'] ) {
+
+    case "select" :  /* Targets all select input type elements, except the country and state select input types */
+        //$args['class'][] = 'form-group'; // Add a class to the field's html element wrapper - woocommerce input types (fields) are often wrapped within a <p></p> tag  
+        $args['input_class'] = array('form-select'); // Add a class to the form input itself
+        //$args['custom_attributes']['data-plugin'] = 'select2';
+        $args['label_class'] = array('form-label');
+        //$args['custom_attributes'] = array( 'data-plugin' => 'select2', 'data-allow-clear' => 'true', 'aria-hidden' => 'true',  ); // Add custom data attributes to the form input itself
+    break;
+
+    case "password" :
+    case "text" :
+    case "email" :
+    case "tel" :
+    case "number" :
+        //$args['class'][] = 'form-group';
+        //$args['input_class'][] = 'form-control input-lg'; // will return an array of classes, the same as bellow
+        $args['input_class'] = array('form-control');
+        $args['label_class'] = array('form-label');
+    break;
+
+    case 'textarea' :
+        $args['input_class'] = array('form-control');
+        $args['label_class'] = array('form-label');
+    break;
+
+    case 'checkbox' :  
+    break;
+
+    case 'radio' :
+    break;
+
+    default :
+        $args['class'][] = 'form-group';
+        $args['input_class'] = array('form-control');
+        $args['label_class'] = array('form-label');
+    break;
+    }
+
+    return $args;
+}
+
+
+function add_classes( $fields ) {
+
+    $fields['billing']['billing_phone']['class'] = array('col-sm-6', 'form-row-first');
+    
+    return $fields;
+} add_filter( 'woocommerce_checkout_fields', 'add_classes');
+
+
+function add_classes_two( $address_fields ) {
+
+    $address_fields['first_name']['class'] = array('col-sm-6', 'form-row-first');
+    $address_fields['last_name']['class'] = array('col-sm-6', 'form-row-last');
+    $address_fields['city']['class'] = array('col-sm-6', 'form-row-first');
+    $address_fields['postcode']['class'] = array('col-sm-6', 'form-row-last');
+    $address_fields['state']['class'] = array('col-sm-6', 'form-row-first');
+
+    return $address_fields;
+} add_filter( 'woocommerce_default_address_fields', 'add_classes_two');

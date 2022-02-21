@@ -6,6 +6,10 @@ body {
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
     &:not(.fa-solid) {
-        font-family: $font-arvo;
+        text-transform: uppercase;
     }
+}
+
+#jumboHeader {
+    height: calc(90vh);
 }

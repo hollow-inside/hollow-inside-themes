@@ -49,7 +49,8 @@ function hollowinside_setup() {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
-			'primary' => __( 'Primary', 'hollowinside' )
+			'primary' => __( 'Primary', 'hollowinside' ),
+			'footer'  => __( 'Footer', 'hollowinside' )
 		)
 	);
 
@@ -184,3 +185,38 @@ function add_menu_link_class( $atts, $item, $args ) {
 	return $atts;
 }
 add_filter( 'nav_menu_link_attributes', 'add_menu_link_class', 1, 3 );
+
+/**
+ * Show cart contents / total Ajax
+ */
+add_filter( 'woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment' );
+function woocommerce_header_add_to_cart_fragment( $fragments ) {
+	global $woocommerce;
+
+	ob_start();
+
+	$items_count = WC()->cart->get_cart_contents_count();
+	$items_active = 'cart-active';
+
+	if ($items_count > 0) {
+		$items_text = WC()->cart->get_cart_contents_count();
+		$items_active = 'cart-active';
+	}
+	else
+	{
+		$items_text = '';
+		$items_active = '';
+	}
+
+	?>
+	<span class="cart-items <?php echo $items_active ?>"><?php echo $items_text ?></span>
+	<?php
+	$fragments['span.cart-items'] = ob_get_clean();
+	return $fragments;
+}
+
+/**
+ * @snippet       Hide SKU, Cats, Tags @ Single Product Page - WooCommerce
+ */
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+

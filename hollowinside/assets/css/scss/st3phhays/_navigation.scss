@@ -1,0 +1,44 @@
+header nav {
+    li {
+        &.current-menu-item .nav-link {
+            text-decoration: underline;
+            font-weight: bold;
+
+            &:hover, &:focus {
+                color: var(--#{$variable-prefix}main-accessible);
+            }
+        }
+
+        &:not(.current-menu-item) .nav-link {
+            &:hover, &:focus {
+                color: var(--#{$variable-prefix}alpha);
+            }
+        }
+
+        .nav-link {
+            text-transform: uppercase;
+            color: var(--#{$variable-prefix}main-accessible);
+        }
+    }
+
+    .cart-items { 
+        display: none;
+
+        &.cart-active {
+            display: block;
+            position: absolute;
+            top: -3px;
+            right: 0px;
+            font-size: .65rem;
+            background: var(--sh-red);
+            height: 20px;
+            width: 20px;
+            display: flex;
+            padding: 2px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 100%;
+            color: var(--sh-white) !important;
+        }
+    }
+}

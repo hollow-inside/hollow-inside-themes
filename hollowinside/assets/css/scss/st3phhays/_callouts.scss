@@ -1,0 +1,47 @@
+.callout, .woocommerce-error, .woocommerce-info, .woocommerce-success {
+  position: relative;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0;
+  list-style-type: none;
+
+  a:not(.btn) {
+    color: var(--#{$variable-prefix}#{white});
+
+    &:hover {
+      color: customAlpha(--#{$variable-prefix}#{white}, 80%)
+    }
+  }
+}
+
+@each $theme, $theme-names in $themes {
+    @each $color, $value in $theme-names {
+      .callout-#{$color} {
+        background: rgba(255,255,255,.05);
+        background: linear-gradient(90deg, customAlpha(--#{$variable-prefix}#{$color}, 15%) 0%, rgba(255,255,255,.05) 40%);
+        border-left: 5px solid var(--#{$variable-prefix}#{$color});
+        color: var(--#{$variable-prefix}#{$color});
+      }
+    }
+}
+
+.woocommerce-error {
+  background: rgba(255,255,255,.05);
+  background: linear-gradient(90deg, customAlpha(--#{$variable-prefix}#{red}, 15%) 0%, rgba(255,255,255,.05) 40%);
+  border-left: 5px solid var(--#{$variable-prefix}#{red});
+  color: var(--#{$variable-prefix}#{red});
+}
+
+.woocommerce-info {
+  background: rgba(255,255,255,.05);
+  background: linear-gradient(90deg, customAlpha(--#{$variable-prefix}#{alpha}, 15%) 0%, rgba(255,255,255,.05) 40%);
+  border-left: 5px solid var(--#{$variable-prefix}#{alpha});
+  color: var(--#{$variable-prefix}#{alpha});
+}
+
+.woocommerce-success {
+  background: rgba(255,255,255,.05);
+  background: linear-gradient(90deg, customAlpha(--#{$variable-prefix}#{green}, 15%) 0%, rgba(255,255,255,.05) 40%);
+  border-left: 5px solid var(--#{$variable-prefix}#{green});
+  color: var(--#{$variable-prefix}#{green});
+}

@@ -1,43 +1,237 @@
-/*
-Theme Name: hollowinside
+// Product sale tag
+ .onsale {
+    font-size: 1.25rem;
+    background: var(--sh-red);
+    padding: .25rem .5rem;
+    color: var(--sh-white);
+    position: absolute;
+    top: 0;
+}
 
-WooCommerce styles override
-*/
+// Product page
+.product-onsale-container {
+    position: relative;
+    z-index: 1;
 
-// WooCommerce color variables
-$woocommerce__color-error: #e2401c;
-$woocommerce__color-success: #0f834d;
-$woocommerce__color-info: #3d9cd2;
+    .onsale {
+        left: 0;
+    }
+}
 
-// Import variables and mixins
-@import "abstracts/abstracts";
+// Products page
+.woocommerce-loop-product__link {
+    position: relative;
+    display: block;
+    color: var(--sh-white);
 
-/**
- * Shop tables
- */
-@import "plugins/woocommerce/tables";
+    .onsale {
+        right: 0;
+    }
 
-/**
- * Products
- */
-@import "plugins/woocommerce/products";
+    .price {
+        font-size: .875rem;
+    }
+}
 
-/**
- * Single product
- */
-@import "plugins/woocommerce/single-product";
+// Breadcrumb
+.woocommerce-breadcrumb {
+    padding: .5rem 0;
+    margin-bottom: .5rem;
+    border-top: 1px solid var(--sh-gray);
+    border-bottom: 1px solid var(--sh-gray);
+}
 
-/**
- * Checkout
- */
-@import "plugins/woocommerce/checkout";
+// Header (after breadcrumb)
+.woocommerce-products-header {
+    border-bottom: 1px solid var(--sh-gray);
+    padding-bottom: .5rem;
+    margin-bottom: 1rem;
 
-/**
- * General WooCommerce components
- */
-@import "plugins/woocommerce/components";
+    h1 {
+        text-transform: uppercase;
+        margin-bottom: 0;
+    }
+}
 
-/**
- * WooCommerce widgets
- */
-@import "plugins/woocommerce/widgets";
+.woocommerce-product-gallery--with-images {
+    position: relative;
+    max-width: 600px;
+
+    // Zoom product image
+    .woocommerce-product-gallery__trigger {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        z-index: 1;
+        background: var(--sh-white);
+        height: 30px;
+        width: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        border: 1px solid var(--sh-black);
+    }
+
+    // Thumbnail images on product page
+    .flex-control-thumbs {
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: .5rem;
+
+        li {
+            display: inline;
+            cursor: pointer;
+
+            &:not(:last-child) {
+                margin-right: .5rem;
+            }
+        }
+    }
+}
+
+// Tabs on product pages
+.woocommerce-tabs {
+    .nav-tabs .nav-item {
+        margin-right: .25rem;
+        margin-bottom: -1px;
+        background: 0 0;
+        border: 1px solid transparent;
+        border-radius: 0;
+
+        &.active {
+            border-color: var(--sh-gray) var(--sh-gray) var(--sh-main);
+        }
+    }
+}
+
+// Cart table
+.woocommerce-cart-form__contents {
+    .product-quantity {
+        .col-form-label {
+            // Visually hidden  
+            position: absolute!important;
+            width: 1px!important;
+            height: 1px!important;
+            padding: 0!important;
+            margin: -1px!important;
+            overflow: hidden!important;
+            clip: rect(0,0,0,0)!important;
+            white-space: nowrap!important;
+            border: 0!important;
+        }
+
+        .col-10 {
+            width: 100% !important;
+        }
+    }
+}
+
+// Password Strength
+.woocommerce-password-strength {
+    &.short, &.bad {
+        color: var(--sh-red);
+    }
+
+    &.good {
+        color: var(--sh-yellow);
+    }
+
+    &.strong {
+        color: var(--sh-green);
+    }
+}
+
+.woocommerce-password-hint {
+    color: #6c757d;
+}
+
+// Invalid inputs
+.woocommerce-invalid {
+    .form-control {
+        border: 2px solid;
+        border-color: var(--sh-red);
+    }
+
+    .form-label {
+        color: var(--sh-red);
+    }
+}
+
+// Select 2 inputs
+.select2-container {
+    .select2-selection--single {
+        height: 38px;
+
+        .select2-selection__rendered {
+            padding-left: .75rem;
+            padding-right: .75rem;
+        }
+    }
+}
+
+.select2-container--default {
+    .select2-selection--single {
+        background-color: var(--sh-gamma);
+        border: 1px solid var(--sh-gray);
+        border-radius: 0;
+        box-shadow: inset 0 1px 2px rgb(0 0 0 / 8%);
+
+        .select2-selection__rendered {
+            color: var(--sh-white);
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 38px;
+        }
+
+        .select2-selection__arrow {
+            height: 36px;
+            width: 36px;
+        }
+    }
+}
+
+.select2-dropdown {
+    background: var(--sh-gray);
+    border-radius: 0;
+}
+
+// Braintree credit card fields
+body.wc-braintree-body .wc-braintree-new-payment-method-container .form-control {
+    background-color: var(--sh-gamma) !important;
+    border: 1px solid !important;
+    border-color: var(--sh-gray) !important;
+    border-radius: 0 !important;
+    box-shadow: inset 0 1px 2px rgb(0 0 0 / 8%) !important;
+    color: var(--sh-white) !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    line-height: 38px !important;
+    height: 38px !important;
+}
+
+// Shipping totals on checkout page
+.woocommerce-shipping-totals .woocommerce-shipping-methods {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+// Account add payment method
+#add_payment_method .woocommerce-PaymentMethods {
+    padding-left: 0;
+}
+
+// Account Login and Registration
+.page-id-10:not(.logged-in) main {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+// Account pages
+.woocommerce-MyAccount-navigation {
+    li.is-active a {
+        color: var(--sh-alpha);
+        font-weight: bold;
+    }
+}

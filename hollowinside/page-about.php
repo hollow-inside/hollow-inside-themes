@@ -12,7 +12,7 @@ get_header();
 
 	<main id="primary" class="site-main">
 
-		<h1>About Custom page</h1>
+		<h1>About</h1>
 
 		<?php get_sidebar(); ?>
 	</main><!-- #main -->

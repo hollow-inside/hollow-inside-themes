@@ -6,6 +6,12 @@
     ]
   },
   {
+    "outputFileName": "output/assets/css/woocommerce.bundle.css",
+    "inputFiles": [
+      "output/assets/css/woocommerce.css"
+    ]
+  },
+  {
     "outputFileName": "output/assets/js/main.js",
     "inputFiles": [
       "node_modules/bootstrap/js/dist/dom/data.js",
@@ -13,7 +19,8 @@
       "node_modules/bootstrap/js/dist/dom/manipulator.js",
       "node_modules/bootstrap/js/dist/dom/selector-engine.js",
       "node_modules/bootstrap/js/dist/base-component.js",
-      "node_modules/bootstrap/js/dist/collapse.js"
+      "node_modules/bootstrap/js/dist/collapse.js",
+      "assets/js/st3phhays/login-register.js"
     ]
   }
 ]
